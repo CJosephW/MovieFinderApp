@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './style/index.scss';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import $ from 'jquery';
 import Popper from 'popper.js';
 import 'font-awesome/css/font-awesome.min.css';
+import './style/index.scss';
 
 ReactDOM.render(
   <React.StrictMode>

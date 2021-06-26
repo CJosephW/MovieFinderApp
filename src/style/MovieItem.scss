@@ -1,0 +1,20 @@
+
+$darkestBlue : #12232E;
+$darkBlue: #203647;
+$lighterBlue: #007CC7;
+$lightestBlue: #4DA8DA;
+$white : #EEFBFB;
+
+
+.col-3{
+    .movie-image{
+        border: 1px solid $darkestBlue;
+        background-color: $darkBlue;
+    }
+    .movie-title{
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color:$white;
+        font-weight: bold;
+    }
+}

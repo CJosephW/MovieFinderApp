@@ -4,7 +4,7 @@ import MovieItem from "./MovieItem";
 import { useObserver } from 'mobx-react';
 import {observable} from 'mobx';
 import { MovieStore } from "../stores/MovieStore";
-
+import "../style/MovieSearch.scss";
 
 function MovieSearch(props){
     const [query, setQuery] = useState("")
@@ -34,7 +34,7 @@ function MovieSearch(props){
             <div class = "container-fluid">
                 <div class = "row">
                     {MovieStore.movies.map((movie) => {
-                        return <MovieItem title = {movie.title} img_link = {movie.img_link} overview = {movie.overview}/>
+                        return <MovieItem title = {movie.title} image_link = {movie.image_link} overview = {movie.overview}/>
                     })}
                 </div>
             </div>
