@@ -1,0 +1,47 @@
+$darkestBlue : #12232E;
+$darkBlue: #203647;
+$lighterBlue: #007CC7;
+$lightestBlue: #4DA8DA;
+$white : #EEFBFB;
+
+.movie-modal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    z-index: 1;
+    background-color: $darkestBlue;
+    position: absolute;
+    
+    .movie-title{
+        margin-bottom: 10px;
+        font-weight: bold;
+        color:$white;
+    }
+    p{
+        margin:10px;
+    }
+
+    .fa-star{
+        color:yellow;
+    }
+    
+    .imageo{
+        max-height: 600px;
+        height: auto;
+        border:1px solid $lighterBlue;
+        background-color: $lightestBlue;
+    }
+    .less-button{
+        border-radius: .50rem;
+        width: 25%;
+        background-color: $lighterBlue ;
+        border: 2px solid $darkBlue;
+        font-weight: bold;
+        padding: 10px 10px 10px 10px;
+        
+    }
+    margin-bottom: 40px;
+
+}

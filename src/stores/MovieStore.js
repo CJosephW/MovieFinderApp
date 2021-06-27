@@ -12,11 +12,14 @@ export const MovieStore = observable(
             .then(function(response){
                 MovieStore.movies = []
                 for(var result of response.data.results){
+                    console.log(result)
                     MovieStore.movies.push({
                         id: result.id,
                         title: result.title,
                         image_link: "https://image.tmdb.org/t/p/original" + result.poster_path,
-                        overview: result.overview
+                        overview: result.overview,
+                        vote_average: result.vote_average,
+                        vote_count: result.vote_count
                     })
                 }
                 })
@@ -34,7 +37,9 @@ export const MovieStore = observable(
                         id: result.id,
                         title: result.title,
                         image_link: "https://image.tmdb.org/t/p/original" + result.poster_path,
-                        overview: result.overview
+                        overview: result.overview,
+                        vote_average: result.vote_average,
+                        vote_count: result.vote_count
                     })
                 }
                 console.log(MovieStore.movies);
