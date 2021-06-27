@@ -11,11 +11,17 @@ $white : #EEFBFB;
     .movie-image{
         border: 1px solid $darkestBlue;
         background-color: $darkBlue;
+        margin-bottom: 10px;
     }
     .movie-title{
         white-space: nowrap;
         text-overflow: ellipsis;
         color:$white;
         font-weight: bold;
+    }
+    .fa-plus-square{
+        color:$lightestBlue;
+        cursor: pointer;
+        
     }
 }

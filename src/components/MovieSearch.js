@@ -6,7 +6,8 @@ import {observable} from 'mobx';
 import { MovieStore } from "../stores/MovieStore";
 import "../style/MovieSearch.scss";
 import MovieModal from "./MovieModal";
-import {ModalStore} from "../stores/ModalStore"
+import {ModalStore} from "../stores/ModalStore";
+import {WatchListStore} from "../stores/WatchListStore";
 
 function MovieSearch(props){
     const [query, setQuery] = useState("")
@@ -55,10 +56,14 @@ function MovieSearch(props){
                 <div class = "row">
                     {/*map all movies in the MovieStore to a MovieItem Component*/}
                     {MovieStore.movies.map((movie) => {
-                        return <MovieItem title = {movie.title} image_link = {movie.image_link} overview = {movie.overview} onClick = {() => {
+                        return <MovieItem  title = {movie.title} image_link = {movie.image_link} overview = {movie.overview} onClick = {() => {
                             ModalStore.movie = movie;
                             setShowModal(true)
-                        }}/>
+                        }}
+                        addOnClick = {()=>{
+                            WatchListStore.addMovie(movie);
+                        }}
+                        />
                     })}
                 </div>
             </div>
