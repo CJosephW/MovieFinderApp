@@ -8,11 +8,11 @@ export const MovieStore = observable(
     {   
         movies:[],
         get_popular(){
+            //grab movies by popularity, TODO add pages
             axios.get("https://api.themoviedb.org/3/discover/movie?api_key="+process.env.REACT_APP_API_KEY+"&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate")
             .then(function(response){
                 MovieStore.movies = []
                 for(var result of response.data.results){
-                    console.log(result)
                     MovieStore.movies.push({
                         id: result.id,
                         title: result.title,
@@ -29,6 +29,7 @@ export const MovieStore = observable(
             })
         },
         query_movies(query){
+            //grab movies filtered by query TODO: add pages for more results
             axios.get("https://api.themoviedb.org/3/search/movie?api_key="+process.env.REACT_APP_API_KEY+"&language=en-US&query="+query+"&include_adult=false")
             .then(function(response){
                 MovieStore.movies = [];
