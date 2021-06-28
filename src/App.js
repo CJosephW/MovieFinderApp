@@ -1,12 +1,37 @@
 import './style/App.scss'
 import MovieSearch from "./components/MovieSearch"
+import {useState} from "react";
+import { WatchListStore } from './stores/WatchListStore';
+import MovieItem from './components/MovieItem';
+import { observable } from 'mobx';
+import {useObserver} from "mobx-react";
+
 function App() {
-  return (
+  const [showSearch, setShowSearch] = useState(true);
+
+  return useObserver (() =>(
     <div className="App">
-      <h1>Movie Finder</h1>
-      <MovieSearch></MovieSearch>
+      {
+        showSearch?
+        <div>
+        <h1 onClick = {()=>setShowSearch(false)}>Movie Finder</h1>
+        <MovieSearch></MovieSearch>
+        </div>
+        : 
+          <div class = "container-fluid">
+            <h1 onClick = {()=>setShowSearch(true)}>Watch List</h1>
+            <div class = "row">
+            {WatchListStore.movies.map((movie) => {
+            return <MovieItem movie = {movie} id = {movie.id} title = {movie.title} image_link = {movie.image_link} overview = {movie.overview} onClick = {() => {
+              }}/>
+              })}
+            </div>
+          </div>
+
+      }
+      
     </div>
-  );
+  ));
 }
 
 export default App;
