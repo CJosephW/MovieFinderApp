@@ -13,7 +13,8 @@ $white : #EEFBFB;
         background-color: $darkBlue;
         margin-bottom: 10px;
     }
-    .movie-title{
+    .h1{
+        word-wrap: break-word;
         white-space: nowrap;
         text-overflow: ellipsis;
         color:$white;

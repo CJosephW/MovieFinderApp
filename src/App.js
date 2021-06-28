@@ -1,10 +1,11 @@
 import './style/App.scss'
 import MovieSearch from "./components/MovieSearch"
+import WatchListItem from './components/WatchListItem';
 import {useState} from "react";
 import { WatchListStore } from './stores/WatchListStore';
-import MovieItem from './components/MovieItem';
 import { observable } from 'mobx';
 import {useObserver} from "mobx-react";
+
 
 function App() {
   const [showSearch, setShowSearch] = useState(true);
@@ -20,9 +21,9 @@ function App() {
         : 
           <div class = "container-fluid">
             <h1 onClick = {()=>setShowSearch(true)}>Watch List</h1>
-            <div class = "row">
+            <div class = "movie-rows row">
             {WatchListStore.movies.map((movie) => {
-            return <MovieItem movie = {movie} id = {movie.id} title = {movie.title} image_link = {movie.image_link} overview = {movie.overview} onClick = {() => {
+            return <WatchListItem movie = {movie} id = {movie.id} title = {movie.title} image_link = {movie.image_link} overview = {movie.overview} onClick = {() => {
               }}/>
               })}
             </div>
