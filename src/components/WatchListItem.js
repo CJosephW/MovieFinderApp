@@ -21,17 +21,18 @@ function WatchListItem (props){
 
     }
 
-
-
     function removeItem(id){
         WatchListStore.deleteMovie(id);
         setInList(false)
     }
 
+ 
+
     return useObserver(() => (
         <div class = "col-4">
             <h1 class = "movie-title">{props.title}</h1>
-            <img class = "movie-image  img-thumbnail" src = {props.image_link} alt = "missing movie art" onClick={props.onClick}></img>
+            <img class = "movie-image  img-thumbnail" src = {props.image_link} alt = "missing movie art" onClick={props.onClick} onError={(e)=>
+                {e.target.onerror = null; e.target.src="https://www.picturetopeople.org/images/photo_editor/not_loaded_sample.gif"}}></img>
             <p>{props.overview}</p>
             {
                 inList?

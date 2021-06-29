@@ -31,7 +31,9 @@ function MovieItem (props){
     return useObserver(() => (
         <div class = "col-3">
             <p class = "movie-title">{props.title}</p>
-            <img class = " movie-image img-thumbnail" src = {props.image_link} alt = "missing movie art" onClick={props.onClick}></img>
+            <img class = " movie-image img-thumbnail" src = {props.image_link} alt = "missing movie art" onError={(e)=>
+                {e.target.onerror = null; e.target.src="https://www.picturetopeople.org/images/photo_editor/not_loaded_sample.gif"}}
+                onClick={props.onClick}></img>
             {
                 inList?
                 <i class = "fa fa-minus-square fa-2x" onClick = {() => removeItem(props.id)}/>
