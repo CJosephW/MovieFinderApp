@@ -19,7 +19,7 @@ function App() {
         <MovieSearch></MovieSearch>
         </div>
         : 
-          <div class = "container-fluid">
+          <div class = "container">
             <h1 onClick = {()=>setShowSearch(true)}>Watch List</h1>
             <div class = "movie-rows row">
             {WatchListStore.movies.map((movie) => {

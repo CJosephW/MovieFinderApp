@@ -1,5 +1,5 @@
 import React from "react";
-import '../style/MovieItem.scss';
+import '../style/WatchListMovieItem.scss';
 import {useState, useEffect,} from "react";
 import { useObserver } from "mobx-react";
 import{WatchListStore} from "../stores/WatchListStore";
@@ -29,9 +29,9 @@ function WatchListItem (props){
     }
 
     return useObserver(() => (
-        <div class = "col-3">
+        <div class = "col-4">
             <h1 class = "movie-title">{props.title}</h1>
-            <img class = " movie-image img-thumbnail" src = {props.image_link} alt = "missing movie art" onClick={props.onClick}></img>
+            <img class = "movie-image  img-thumbnail" src = {props.image_link} alt = "missing movie art" onClick={props.onClick}></img>
             <p>{props.overview}</p>
             {
                 inList?
