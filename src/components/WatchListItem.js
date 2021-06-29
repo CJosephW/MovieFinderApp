@@ -10,6 +10,7 @@ function WatchListItem (props){
     const [inList, setInList] = useState(false);
 
     useEffect(() => {
+
             if(WatchListStore.movies.some(item => item.id === props.id)){
                 setInList(true);
             }

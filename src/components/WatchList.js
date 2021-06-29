@@ -6,6 +6,12 @@ import {useEffect, useState} from "react";
 
 function WatchList(){
 
+    useEffect(() => {
+    if(WatchListStore.movies.length === 0){
+        WatchListStore.checkLocal();  
+    }
+    })
+
 
     const checkIfEmpty = () => {
         if(WatchListStore.movies.length !== 0){

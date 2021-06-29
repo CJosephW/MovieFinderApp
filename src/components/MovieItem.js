@@ -10,6 +10,10 @@ function MovieItem (props){
     const [inList, setInList] = useState(false);
 
     useEffect(() => {
+            if(WatchListStore.movies.length === 0){
+                WatchListStore.checkLocal();  
+            }
+
             if(WatchListStore.movies.some(item => item.id === props.id)){
                 setInList(true);
             }
