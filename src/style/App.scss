@@ -1,7 +1,35 @@
+
+$darkestBlue : #12232E;
+$darkBlue: #203647;
+$lighterBlue: #007CC7;
+$lightestBlue: #4DA8DA;
+$white : #EEFBFB;
+
+
 .App {
   text-align: center;
+  align-content: center;
   .movie-rows{
     align-content: center;
     justify-content: center;
+  }
+  .header{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    p{
+      margin-bottom: 0px;
+      margin-left: 20px;
+      cursor: pointer;
+
+    }
+    p:hover{
+      background-color: $darkBlue;
+      padding: 15px;
+      color:$lightestBlue;
+      border: 3px solid $lighterBlue;
+    }
   }
 }
