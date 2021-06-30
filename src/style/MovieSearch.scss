@@ -1,3 +1,9 @@
+$darkestBlue : #12232E;
+$darkBlue: #203647;
+$lighterBlue: #007CC7;
+$lightestBlue: #4DA8DA;
+$white : #EEFBFB;
+
 .container{
     
     z-index: -1;
@@ -7,5 +13,16 @@
         margin-bottom: 20px;
         margin-top:20px;
     
+    }
+
+    .genre-row{
+
+        margin-bottom: 20px;
+        p{
+            cursor: pointer;
+        }
+        p:hover{
+            background-color: $lighterBlue;
+        }
     }
 }
