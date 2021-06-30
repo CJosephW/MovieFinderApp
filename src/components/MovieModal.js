@@ -4,7 +4,7 @@ import "../style/MovieModal.scss"
 function MovieModal(props){
     
     return(
-        <div class = " movie-modal  container-fluid">
+        <div class = " movie-modal container-fluid">
             <p class = "movie-title">{props.title}</p>
             <img class = " imageo img-responsive img-thumbnail"src = {props.image_link} alt = "missing movie art"></img>
             <p>{props.overview}</p>

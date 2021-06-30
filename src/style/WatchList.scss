@@ -1,0 +1,17 @@
+$darkestBlue : #12232E;
+$darkBlue: #203647;
+$lighterBlue: #007CC7;
+$lightestBlue: #4DA8DA;
+$white : #EEFBFB;
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    .modal-container{
+        position: relative;
+    }
+
+}

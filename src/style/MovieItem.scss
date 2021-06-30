@@ -17,13 +17,13 @@ $white : #EEFBFB;
         
         
     }
-    h1{
-        
+    p{
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         color:$white;
-        font-weight: bold;
+        
+
     }
     .fa-plus-square{
         color:$lightestBlue;

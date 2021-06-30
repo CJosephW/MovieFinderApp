@@ -23,6 +23,7 @@ function MovieSearch(props){
     useEffect(() =>{
         //if there are no movies in the movies store, grab movies by popularity
         if(MovieStore.movies.length === 0){
+            console.log("it thinks it's empty")
             MovieStore.get_popular();
         }
         //scroll to MovieModal
@@ -49,6 +50,20 @@ function MovieSearch(props){
                         }}></i>
                     </span>
                 </div>
+            </div>
+            <div class = "genre-row row">
+                <p class = "col" onClick = {()=>{
+                    MovieStore.get_popular_genre("87");
+                }}>Western</p>
+                <p class = "col">Crime</p>
+                <p class = "col">War</p>
+                <p class = "col">Action</p>
+                <p class = "col">Adventure</p>
+                <p class = "col">Animation</p>
+                <p class = "col">Documentary</p>
+                <p class = "col">Drama</p>
+                <p class = "col">Horror</p>
+                <p class = "col">Science Fiction</p>
             </div>
            
             <div class = "container-fluid">

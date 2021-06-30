@@ -21,6 +21,7 @@ $white : #EEFBFB;
         text-overflow: ellipsis;
         color:$white;
         font-weight: bold;
+        min-width: 0px;
     }
     .fa-plus-square{
         color:$lightestBlue;
@@ -30,5 +31,12 @@ $white : #EEFBFB;
     .fa-minus-square{
         color:red;
         cursor: pointer;
+    }
+    .overview{
+        max-height: 200px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color:$white;
     }
 }

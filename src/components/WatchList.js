@@ -3,13 +3,31 @@ import { WatchListStore } from '../stores/WatchListStore';
 import {useObserver} from "mobx-react";
 import WatchListItem from './WatchListItem';
 import {useEffect, useState} from "react";
-
+import {ModalStore} from "../stores/ModalStore";
+import MovieModal from "./MovieModal";
+import "../style/WatchList.scss"
 function WatchList(){
+
+    const [showModal, setShowModal] = useState(false)
+
+    function displayModal(){
+        return(
+            <MovieModal title = {ModalStore.movie.title} overview = {ModalStore.movie.overview} image_link = {ModalStore.movie.image_link} vote_average = {ModalStore.movie.vote_average} vote_count = {ModalStore.movie.vote_count} onClick = {()=>{
+                //on button click set ModalStore's movie to none and set the ShowModal state to false so it doesn't display any longer
+                ModalStore.movie = {};
+                setShowModal(false)}}></MovieModal>
+        );
+    }
 
     useEffect(() => {
     if(WatchListStore.movies.length === 0){
         WatchListStore.checkLocal();  
     }
+    if(showModal ===true){
+        window.scrollTo(0,0)
+
+    }   
+
     })
 
 
@@ -24,12 +42,21 @@ function WatchList(){
 
     return useObserver (() =>(
         <div class = "container">
+            <div class = "modal-container">
+             {
+                //if a movie is clicked on show Modal is set to true and the MovieModal Component is displayed with the selected movie's data otherwise do not display the modal
+                showModal?
+                displayModal()
+                : null
+            }
+            </div>
             {
                 checkIfEmpty() ?
                 <div class = "movie-rows row">
                     {WatchListStore.movies.map((movie) => {
                     return <WatchListItem movie = {movie} id = {movie.id} title = {movie.title} image_link = {movie.image_link} overview = {movie.overview} onClick = {() => {
-                        //possibly implement modal here
+                        ModalStore.movie = movie;
+                        setShowModal(true)
                     }}/>
                     })}
                 </div> 
