@@ -11,6 +11,7 @@ import {ModalStore} from "../stores/ModalStore";
 function MovieSearch(props){
     const [query, setQuery] = useState("")
     const [showModal, setShowModal] = useState(false)
+    const [pageNum, setPageNum] = useState(1);
 
     function displayModal(){
         return(
@@ -23,8 +24,8 @@ function MovieSearch(props){
     useEffect(() =>{
         //if there are no movies in the movies store, grab movies by popularity
         if(MovieStore.movies.length === 0){
-            console.log("it thinks it's empty")
             MovieStore.get_popular();
+            setPageNum(1);
         }
         //scroll to MovieModal
         window.scrollTo(0,0)
@@ -39,7 +40,6 @@ function MovieSearch(props){
                 : null
             }
         <div class = "search_page container">
-            
             <div class = "search_bar container">
                 <div class = "input-group rounded">
                     <input type = "search" class = "form-control rounded" placeholder = "Search Movies" aria-label = "Search Movies" onChange = {(e) => setQuery(e.target.value)}/>
@@ -47,6 +47,7 @@ function MovieSearch(props){
                         <i className = "fa fa-search" onClick = {() => {
                             //search movies filtered by the searchbar's input text
                             MovieStore.query_movies(query);
+                            setPageNum(1);
                         }}></i>
                     </span>
                 </div>
@@ -54,33 +55,43 @@ function MovieSearch(props){
             <div class = "genre-row row">
                 <p class = "col" onClick = {()=>{
                     MovieStore.get_popular_genre("37");
+                    setPageNum(1);
                 }}>Western</p>
                 <p class = "col"onClick = {()=>{
                     MovieStore.get_popular_genre("80");
+                    setPageNum(1);
                 }}>Crime</p>
                 <p class = "col"onClick = {()=>{
                     MovieStore.get_popular_genre("10752");
+                    setPageNum(1);
                 }}>History</p>
                 <p class = "col"onClick = {()=>{
                     MovieStore.get_popular_genre("36");
+                    setPageNum(1);
                 }}>Action</p>
                 <p class = "col"onClick = {()=>{
                     MovieStore.get_popular_genre("12");
+                    setPageNum(1);
                 }}>Adventure</p>
                 <p class = "col"onClick = {()=>{
                     MovieStore.get_popular_genre("16");
+                    setPageNum(1);
                 }}>Animation</p>
                 <p class = "col"onClick = {()=>{
                     MovieStore.get_popular_genre("99");
+                    setPageNum(1);
                 }}>Documentary</p>
                 <p class = "col"onClick = {()=>{
                     MovieStore.get_popular_genre("18");
+                    setPageNum(1);
                 }}>Drama</p>
                 <p class = "col"onClick = {()=>{
                     MovieStore.get_popular_genre("27");
+                    setPageNum(1);
                 }}>Horror</p>
                 <p class = "col"onClick = {()=>{
                     MovieStore.get_popular_genre("878");
+                    setPageNum(1);
                 }}>Science Fiction</p>
             </div>
            
@@ -92,10 +103,99 @@ function MovieSearch(props){
                             ModalStore.movie = movie;
                             setShowModal(true)
                         }}
-                      
                         />
                     })}
                 </div>
+                <div class = "page-navigator">
+                    <i className = "col fa fa-fast-backward fa-2x" onClick = {() =>{
+                            let type = MovieStore.request_type.split(' ')
+                            if(pageNum !== 1){
+                                if(type[0] === "getPopularGenre"){
+                                    console.log('this is happening')
+                                    MovieStore.get_popular_genre(type[1])
+                                    setPageNum(1);
+                                }
+                                else if(type[0] === "getPopular"){
+                                    MovieStore.get_popular()
+                                    setPageNum(1);
+                                }
+                                else if(type[0] === "queryMovies"){
+                                    MovieStore.query_movies(type[1]);
+                                    setPageNum(1);
+                                }
+                            }
+                            else{
+                                window.alert("you are at the first page!")
+                            }
+                            }}></i>
+
+                    <i className = "col fa fa-step-backward fa-2x" onClick = {() =>{
+                            let type = MovieStore.request_type.split(' ')
+                            if(pageNum !== 1){
+                                if(type[0] === "getPopularGenre"){
+                                    console.log('this is happening')
+                                    MovieStore.get_popular_genre(type[1], pageNum -1)
+                                    setPageNum(pageNum-1);
+                                }
+                                else if(type[0] === "getPopular"){
+                                    MovieStore.get_popular(pageNum - 1)
+                                    setPageNum(pageNum - 1);
+                                }
+                                else if(type[0] === "queryMovies"){
+                                    MovieStore.query_movies(type[1], pageNum-1);
+                                    setPageNum(pageNum -1);
+                                }
+                            }
+                            else{
+                                window.alert("you are at the first page!")
+                            }
+                            }}></i>
+
+                    <p>{pageNum}</p>
+                    
+                        <i className = "col fa fa-step-forward fa-2x" onClick = {() =>{
+                            let type = MovieStore.request_type.split(' ')
+                            if(pageNum !== MovieStore.max_pages){
+                                if(type[0] === "getPopularGenre"){
+                                    MovieStore.get_popular_genre(type[1], pageNum +1)
+                                    setPageNum(pageNum+1);
+                                }
+                                else if(type[0] === "getPopular"){
+                                    MovieStore.get_popular(pageNum+1)
+                                    setPageNum(pageNum +1);
+                                }
+                                else if(type[0] === "queryMovies"){
+                                    MovieStore.query_movies(type[1], pageNum+1);
+                                    setPageNum(pageNum +1);
+                                }
+                            }
+                            else{
+                                window.alert("you are on the last page");
+                            }
+                            
+                        }}></i>
+                        <i className = "col fa fa-fast-forward fa-2x" onClick = {() =>{
+                            let type = MovieStore.request_type.split(' ')
+                            if(pageNum !== MovieStore.max_pages){
+                                if(type[0] === "getPopularGenre"){
+                                    MovieStore.get_popular_genre(type[1], MovieStore.max_pages)
+                                    setPageNum(MovieStore.max_pages);
+                                }
+                                else if(type[0] === "getPopular"){
+                                    MovieStore.get_popular(MovieStore.max_pages)
+                                    setPageNum(MovieStore.max_pages);
+                                }
+                                else if(type[0] === "queryMovies"){
+                                    MovieStore.query_movies(type[1], MovieStore.max_pages);
+                                    setPageNum(MovieStore.max_pages);
+                                }
+                            }
+                            else{
+                                window.alert("you are on the last page");
+                            }
+                            }}></i>
+
+                    </div>
             </div>
         </div>
         </div>
