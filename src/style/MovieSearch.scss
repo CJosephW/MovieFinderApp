@@ -14,6 +14,14 @@ $white : #EEFBFB;
         margin-top:20px;
         z-index: 0;
     }
+    .page-navigator{
+        display: flex;
+        flex-direction: "row";
+        .fa{
+            color:$lighterBlue; 
+            cursor: pointer;
+        }
+    }
 
     .genre-row{
 
