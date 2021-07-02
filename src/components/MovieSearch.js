@@ -1,8 +1,7 @@
 import React from "react";
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect} from 'react';
 import MovieItem from "./MovieItem";
 import { useObserver } from 'mobx-react';
-import {observable} from 'mobx';
 import { MovieStore } from "../stores/MovieStore";
 import "../style/MovieSearch.scss";
 import MovieModal from "./MovieModal";
@@ -27,8 +26,11 @@ function MovieSearch(props){
             MovieStore.get_popular();
             setPageNum(1);
         }
-        //scroll to MovieModal
-        window.scrollTo(0,0)
+        //scroll to MovieModal if showModal's state is true
+        if(showModal ===true){
+            window.scrollTo(0,0)
+    
+        }  
     });
 
     return useObserver( () => (
@@ -52,6 +54,7 @@ function MovieSearch(props){
                     </span>
                 </div>
             </div>
+            {/*each column in this row is an item that on click runs a request for movies with the passed genre id string */}
             <div class = "genre-row row">
                 <p class = "col" onClick = {()=>{
                     MovieStore.get_popular_genre("37");
@@ -107,11 +110,11 @@ function MovieSearch(props){
                     })}
                 </div>
                 <div class = "page-navigator">
+                    {/*on fastbackward icon's click; based on the last request type it will take that request and return to the first page, if it is not already */}
                     <i className = "col fa fa-fast-backward fa-2x" onClick = {() =>{
                             let type = MovieStore.request_type.split(' ')
                             if(pageNum !== 1){
                                 if(type[0] === "getPopularGenre"){
-                                    console.log('this is happening')
                                     MovieStore.get_popular_genre(type[1])
                                     setPageNum(1);
                                 }
@@ -128,12 +131,11 @@ function MovieSearch(props){
                                 window.alert("you are at the first page!")
                             }
                             }}></i>
-
+                    {/*on step backwards' icon's click; based on the last request type it will take that request and return the previous page */}
                     <i className = "col fa fa-step-backward fa-2x" onClick = {() =>{
                             let type = MovieStore.request_type.split(' ')
                             if(pageNum !== 1){
                                 if(type[0] === "getPopularGenre"){
-                                    console.log('this is happening')
                                     MovieStore.get_popular_genre(type[1], pageNum -1)
                                     setPageNum(pageNum-1);
                                 }
@@ -150,9 +152,9 @@ function MovieSearch(props){
                                 window.alert("you are at the first page!")
                             }
                             }}></i>
-
+                    {/*display current page number */}
                     <p>{pageNum}</p>
-                    
+                        {/*on step forward's icon's click; based on the last request type it will take that request and return the next page up if it is not already at the last page */}
                         <i className = "col fa fa-step-forward fa-2x" onClick = {() =>{
                             let type = MovieStore.request_type.split(' ')
                             if(pageNum !== MovieStore.max_pages){
@@ -174,6 +176,7 @@ function MovieSearch(props){
                             }
                             
                         }}></i>
+                        {/*on fast forward's icon's click; based on the last request type it will take that request and return the last page(max_pages count in request) up if it is not already at the last page */}
                         <i className = "col fa fa-fast-forward fa-2x" onClick = {() =>{
                             let type = MovieStore.request_type.split(' ')
                             if(pageNum !== MovieStore.max_pages){

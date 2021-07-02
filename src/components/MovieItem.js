@@ -10,23 +10,22 @@ function MovieItem (props){
     const [inList, setInList] = useState(false);
 
     useEffect(() => {
+            //check local storage for wish list item
             if(WatchListStore.movies.length === 0){
                 WatchListStore.checkLocal();  
             }
-
+            //if movie id exists in watch list store set the inList state to true
             if(WatchListStore.movies.some(item => item.id === props.id)){
                 setInList(true);
             }
     });
-
+    //set in list state to true and add move to WishListStore's movie array
     function addItem(movie){
         setInList(true);
         WatchListStore.addMovie(movie);
 
     }
-
-
-
+    //set in list state to false and remove from WishListStore's movie array
     function removeItem(id){
         WatchListStore.deleteMovie(id);
         setInList(false)

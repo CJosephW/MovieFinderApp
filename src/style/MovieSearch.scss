@@ -5,11 +5,8 @@ $lightestBlue: #4DA8DA;
 $white : #EEFBFB;
 
 .container{
-    
     z-index: -1;
-
     .search_bar{
-
         margin-bottom: 20px;
         margin-top:20px;
         z-index: 0;
@@ -22,9 +19,7 @@ $white : #EEFBFB;
             cursor: pointer;
         }
     }
-
     .genre-row{
-
         margin-bottom: 20px;
         p{
             cursor: pointer;

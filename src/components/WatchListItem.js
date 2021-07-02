@@ -10,7 +10,6 @@ function WatchListItem (props){
     const [inList, setInList] = useState(false);
 
     useEffect(() => {
-
             if(WatchListStore.movies.some(item => item.id === props.id)){
                 setInList(true);
             }
@@ -26,8 +25,6 @@ function WatchListItem (props){
         WatchListStore.deleteMovie(id);
         setInList(false)
     }
-
- 
 
     return useObserver(() => (
         <div class = "col-4">

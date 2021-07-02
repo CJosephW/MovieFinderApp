@@ -1,14 +1,12 @@
 import './style/App.scss'
 import MovieSearch from "./components/MovieSearch"
-import WatchListItem from './components/WatchListItem';
 import {useState} from "react";
-import { WatchListStore } from './stores/WatchListStore';
-import { observable } from 'mobx';
 import {useObserver} from "mobx-react";
 import WatchList from "./components/WatchList";
 
 
 function App() {
+  
   const [showSearch, setShowSearch] = useState(true);
 
   return useObserver (() =>(
