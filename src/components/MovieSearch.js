@@ -7,6 +7,7 @@ import "../style/MovieSearch.scss";
 import MovieModal from "./MovieModal";
 import {ModalStore} from "../stores/ModalStore";
 import PageNavigator from "./PageNavigator";
+import GenreRow from "./GenreRow";
 function MovieSearch(props){
     const [query, setQuery] = useState("")
     const [showModal, setShowModal] = useState(false)
@@ -56,48 +57,7 @@ function MovieSearch(props){
                 </div>
             </div>
             {/*each column in this row is an item that on click runs a request for movies with the passed genre id string */}
-            <div class = "genre-row row">
-                <p class = "col" onClick = {()=>{
-                    MovieStore.get_popular_genre("37");
-                    setPageNum(1);
-                }}>Western</p>
-                <p class = "col"onClick = {()=>{
-                    MovieStore.get_popular_genre("80");
-                    setPageNum(1);
-                }}>Crime</p>
-                <p class = "col"onClick = {()=>{
-                    MovieStore.get_popular_genre("10752");
-                    setPageNum(1);
-                }}>History</p>
-                <p class = "col"onClick = {()=>{
-                    MovieStore.get_popular_genre("36");
-                    setPageNum(1);
-                }}>Action</p>
-                <p class = "col"onClick = {()=>{
-                    MovieStore.get_popular_genre("12");
-                    setPageNum(1);
-                }}>Adventure</p>
-                <p class = "col"onClick = {()=>{
-                    MovieStore.get_popular_genre("16");
-                    setPageNum(1);
-                }}>Animation</p>
-                <p class = "col"onClick = {()=>{
-                    MovieStore.get_popular_genre("99");
-                    setPageNum(1);
-                }}>Documentary</p>
-                <p class = "col"onClick = {()=>{
-                    MovieStore.get_popular_genre("18");
-                    setPageNum(1);
-                }}>Drama</p>
-                <p class = "col"onClick = {()=>{
-                    MovieStore.get_popular_genre("27");
-                    setPageNum(1);
-                }}>Horror</p>
-                <p class = "col"onClick = {()=>{
-                    MovieStore.get_popular_genre("878");
-                    setPageNum(1);
-                }}>Science Fiction</p>
-            </div>
+            <GenreRow></GenreRow>
             <div class = "container-fluid">
                 <div class = "row">
                     {/*map all movies in the MovieStore to a MovieItem Component*/}

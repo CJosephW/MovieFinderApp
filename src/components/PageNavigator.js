@@ -8,7 +8,7 @@ import {ModalStore} from "../stores/ModalStore";
 
 function PageNavigator(props){
 
-    return  useObserver(() =>(
+    return  useObserver (() =>(
         
         <div class = "page-navigator">
         {/*on fastbackward icon's click; based on the last request type it will take that request and return to the first page, if it is not already */}
