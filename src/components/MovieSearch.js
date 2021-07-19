@@ -6,7 +6,7 @@ import { MovieStore } from "../stores/MovieStore";
 import "../style/MovieSearch.scss";
 import MovieModal from "./MovieModal";
 import {ModalStore} from "../stores/ModalStore";
-
+import PageNavigator from "./PageNavigator";
 function MovieSearch(props){
     const [query, setQuery] = useState("")
     const [showModal, setShowModal] = useState(false)
@@ -44,14 +44,15 @@ function MovieSearch(props){
         <div class = "search_page container">
             <div class = "search_bar container">
                 <div class = "input-group rounded">
-                    <input type = "search" class = "form-control rounded" placeholder = "Search Movies" aria-label = "Search Movies" onChange = {(e) => setQuery(e.target.value)}/>
-                    <span class = "input-group-text border-0" id= "search-addon">
-                        <i className = "fa fa-search" onClick = {() => {
-                            //search movies filtered by the searchbar's input text
-                            MovieStore.query_movies(query);
-                            setPageNum(1);
-                        }}></i>
-                    </span>
+                    <input type = "search" class = "form-control rounded" placeholder = "Search Movies" aria-label = "Search Movies" onChange = {(e) => {
+                        setQuery(e.target.value)
+                        MovieStore.query_movies(e.target.value);
+                        setPageNum(1);
+                        if(e.target.value === ""){
+                            MovieStore.get_popular();
+                        }
+                    }}
+                    />
                 </div>
             </div>
             {/*each column in this row is an item that on click runs a request for movies with the passed genre id string */}
@@ -97,7 +98,6 @@ function MovieSearch(props){
                     setPageNum(1);
                 }}>Science Fiction</p>
             </div>
-           
             <div class = "container-fluid">
                 <div class = "row">
                     {/*map all movies in the MovieStore to a MovieItem Component*/}
@@ -109,98 +109,10 @@ function MovieSearch(props){
                         />
                     })}
                 </div>
-                <div class = "page-navigator">
-                    {/*on fastbackward icon's click; based on the last request type it will take that request and return to the first page, if it is not already */}
-                    <i className = "col fa fa-fast-backward fa-2x" onClick = {() =>{
-                            let type = MovieStore.request_type.split(' ')
-                            if(pageNum !== 1){
-                                if(type[0] === "getPopularGenre"){
-                                    MovieStore.get_popular_genre(type[1])
-                                    setPageNum(1);
-                                }
-                                else if(type[0] === "getPopular"){
-                                    MovieStore.get_popular()
-                                    setPageNum(1);
-                                }
-                                else if(type[0] === "queryMovies"){
-                                    MovieStore.query_movies(type[1]);
-                                    setPageNum(1);
-                                }
-                            }
-                            else{
-                                window.alert("you are at the first page!")
-                            }
-                            }}></i>
-                    {/*on step backwards' icon's click; based on the last request type it will take that request and return the previous page */}
-                    <i className = "col fa fa-step-backward fa-2x" onClick = {() =>{
-                            let type = MovieStore.request_type.split(' ')
-                            if(pageNum !== 1){
-                                if(type[0] === "getPopularGenre"){
-                                    MovieStore.get_popular_genre(type[1], pageNum -1)
-                                    setPageNum(pageNum-1);
-                                }
-                                else if(type[0] === "getPopular"){
-                                    MovieStore.get_popular(pageNum - 1)
-                                    setPageNum(pageNum - 1);
-                                }
-                                else if(type[0] === "queryMovies"){
-                                    MovieStore.query_movies(type[1], pageNum-1);
-                                    setPageNum(pageNum -1);
-                                }
-                            }
-                            else{
-                                window.alert("you are at the first page!")
-                            }
-                            }}></i>
-                    {/*display current page number */}
-                    <p>{pageNum}</p>
-                        {/*on step forward's icon's click; based on the last request type it will take that request and return the next page up if it is not already at the last page */}
-                        <i className = "col fa fa-step-forward fa-2x" onClick = {() =>{
-                            let type = MovieStore.request_type.split(' ')
-                            if(pageNum !== MovieStore.max_pages){
-                                if(type[0] === "getPopularGenre"){
-                                    MovieStore.get_popular_genre(type[1], pageNum +1)
-                                    setPageNum(pageNum+1);
-                                }
-                                else if(type[0] === "getPopular"){
-                                    MovieStore.get_popular(pageNum+1)
-                                    setPageNum(pageNum +1);
-                                }
-                                else if(type[0] === "queryMovies"){
-                                    MovieStore.query_movies(type[1], pageNum+1);
-                                    setPageNum(pageNum +1);
-                                }
-                            }
-                            else{
-                                window.alert("you are on the last page");
-                            }
-                            
-                        }}></i>
-                        {/*on fast forward's icon's click; based on the last request type it will take that request and return the last page(max_pages count in request) up if it is not already at the last page */}
-                        <i className = "col fa fa-fast-forward fa-2x" onClick = {() =>{
-                            let type = MovieStore.request_type.split(' ')
-                            if(pageNum !== MovieStore.max_pages){
-                                if(type[0] === "getPopularGenre"){
-                                    MovieStore.get_popular_genre(type[1], MovieStore.max_pages)
-                                    setPageNum(MovieStore.max_pages);
-                                }
-                                else if(type[0] === "getPopular"){
-                                    MovieStore.get_popular(MovieStore.max_pages)
-                                    setPageNum(MovieStore.max_pages);
-                                }
-                                else if(type[0] === "queryMovies"){
-                                    MovieStore.query_movies(type[1], MovieStore.max_pages);
-                                    setPageNum(MovieStore.max_pages);
-                                }
-                            }
-                            else{
-                                window.alert("you are on the last page");
-                            }
-                            }}></i>
-
-                    </div>
             </div>
-        </div>
+            <PageNavigator></PageNavigator>
+
+            </div>
         </div>
     ));
 

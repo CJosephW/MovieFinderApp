@@ -5,10 +5,11 @@ import { observable } from 'mobx';
 
 export const MovieStore = observable(
     {   
-        //max pages variabel for movie search to confirm page number is not going beyond
-        max_pages: 0,
-        //request type for movie search to repeat requests with new page variable
-        request_type:"",
+        request_data:{
+            page: 1,
+            max_pages: 0,
+            type: ""
+        },
         movies:[],
         //grab movies by popularity with page override and set request type and max pages
         get_popular(page =1){
@@ -25,8 +26,11 @@ export const MovieStore = observable(
                         vote_count: result.vote_count
                     })
                 }
-                MovieStore.request_type = "getPopular";
-                MovieStore.max_pages = response.data.total_pages;
+                MovieStore.request_data = {
+                    page: page,
+                    max_pages: response.data.total_pages,
+                    type: "getPopular"
+                }
                 })
             .catch(function(error){
                 console.log(error)
@@ -48,8 +52,12 @@ export const MovieStore = observable(
                         vote_count: result.vote_count
                     })
                 }
-                MovieStore.request_type = "getPopularGenre "+genre_string;
-                MovieStore.max_pages = response.data.total_pages;
+                MovieStore.request_data = {
+                    page: page,
+                    max_pages: response.data.total_pages,
+                    type: "getPopularGenre",
+                    genre_string: genre_string
+                }
                 })
             .catch(function(error){
                 console.log(error)
@@ -71,8 +79,12 @@ export const MovieStore = observable(
                         vote_count: result.vote_count
                     })
                 }
-                MovieStore.request_type = "queryMovies "+query;
-                MovieStore.max_pages = response.data.total_pages;
+                MovieStore.request_data = {
+                    page: page,
+                    max_pages: response.data.total_pages,
+                    type: "queryMovies",
+                    query: query
+                }
         })
         .catch(function(error){
             console.log(error)
